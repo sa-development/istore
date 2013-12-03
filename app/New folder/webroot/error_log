@@ -1,0 +1,21 @@
+[26-Jan-2013 11:25:35] PHP Fatal error:  Call to undefined method View::link() in /home5/indipeop/public_html/dev1/app/View/Pricebooks/index.ctp on line 3
+[26-Jan-2013 11:25:39] PHP Fatal error:  Call to undefined method View::link() in /home5/indipeop/public_html/dev1/app/View/Pricebooks/index.ctp on line 3
+[05-Feb-2013 11:48:10] PHP Fatal error:  Call to undefined function  simplexmlelement() in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 47
+[06-Feb-2013 10:23:30] PHP Fatal error:  Call to undefined method App::getModel() in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 51
+[06-Feb-2013 10:33:57] PHP Fatal error:  Call to undefined method PricebooksController::prepareDataForPLUList() in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 53
+[06-Feb-2013 10:46:51] PHP Fatal error:  Call to a member function saveAll() on a non-object in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 55
+[06-Feb-2013 10:52:59] PHP Fatal error:  Call to a member function saveAll() on a non-object in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 55
+[06-Feb-2013 10:53:04] PHP Fatal error:  Call to a member function saveAll() on a non-object in /home5/indipeop/public_html/dev1/app/Controller/AppController.php on line 55
+[01-Mar-2013 10:28:30] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/dev1/app/webroot/listener.php on line 3
+[01-Mar-2013 10:30:15] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/dev1/app/webroot/listener.php on line 3
+[01-Mar-2013 10:30:20] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/dev1/app/webroot/listener.php on line 3
+[07-Apr-2013 07:20:50] PHP Parse error:  syntax error, unexpected '}' in /home5/indipeop/public_html/dev1/app/Controller/PlusesController.php on line 33
+[07-Apr-2013 07:22:17] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home5/indipeop/public_html/dev1/lib/Cake/Utility/Debugger.php on line 521
+[13-Apr-2013 12:05:34] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/dev1/app/Controller/StationCmdsController.php on line 96
+[13-Apr-2013 12:24:37] PHP Parse error:  syntax error, unexpected '<' in /home5/indipeop/public_html/dev1/app/View/Elements/station_report.ctp on line 15
+[13-Apr-2013 12:52:14] PHP Warning:  Unterminated comment starting line 109 in /home5/indipeop/public_html/dev1/app/Controller/VfueltotalsController.php on line 109
+[13-Apr-2013 12:52:14] PHP Fatal error:  fatal flex scanner internal error--end of buffer missed in /home5/indipeop/public_html/dev1/app/Controller/VfueltotalsController.php on line 109
+[13-Apr-2013 12:58:40] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/dev1/app/View/Vfueltotals/index.ctp on line 13
+[13-Apr-2013 12:58:57] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/dev1/app/View/Vfueltotals/index.ctp on line 13
+[14-Apr-2013 07:16:42] PHP Fatal error:  Call to a member function find() on a non-object in /home5/indipeop/public_html/dev1/app/Controller/VrubyreptdepartmentsController.php on line 20
+[14-Apr-2013 07:21:32] PHP Parse error:  syntax error, unexpected $end, expecting '(' in /home5/indipeop/public_html/dev1/app/Controller/StationCmdsController.php on line 252

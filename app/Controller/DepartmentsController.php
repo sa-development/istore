@@ -1,0 +1,247 @@
+<?php
+
+App::uses('AppController', 'Controller');
+
+/**
+ * Departments Controller
+ *
+ * @property Department $Department
+ */
+class DepartmentsController extends AppController {
+
+    function beforeFilter() {
+        parent::beforeFilter();
+    }
+
+    /**
+     * index method
+     *
+     * @return void
+     */
+    public function index($stationId=null) {
+        $this->Department->recursive = 0;
+
+        $this->_updateConfigData($stationId);
+		//echo "testing";
+        $this->set('departments', $this->paginate());
+    }
+
+    function _updateConfigData() {
+        $stationId = $this->params['params']['query']['station'];
+
+        $this->loadModel('StationCmd');
+        $configData = $this->StationCmd->find('first', array('conditions' => array('station_id' => $stationId, 'cmd' => 'vposcfg')));
+        if ($configData['StationCmd']) {
+            $dataObject = simplexml_load_string(str_replace(':', '', $configData['StationCmd']['data']));
+            $this->_updateCategories($dataObject->categories, $configData);
+            $this->_updateProdCodes($dataObject->prodCodes, $configData);
+            $this->_updateDepartments($dataObject->departments, $configData);
+        }
+    }
+
+    function _updateCategories($categories, $configData) {
+        $this->loadModel('Category');
+        $categoryData = array();
+        //print_r($configData);exit;
+        foreach ($categories->category as $key => $category) {
+            $updateData = array();
+            $updateData['name'] = (string) $category['name'];
+            $updateData['sysid'] = (string) $category['sysid'];
+            $updateData['station_id'] = $configData['StationCmd']['station_id'];
+            $categoryId = $this->Category->field('Category.id', $updateData);
+            if ($categoryId > 0) {
+                $updateData['id'] = $categoryId;
+            }
+            $updateData['sync_id'] = $configData['StationCmd']['sync_id'];
+            $categoryData[] = $updateData;
+        }
+        $this->Category->saveAll($categoryData);
+    }
+
+    function _updateProdCodes($prodCodes, $configData) {
+        $this->loadModel('Prodcode');
+        $data = array();
+        //print_r($configData);exit;
+        foreach ($prodCodes->prodCode as $key => $prodCode) {
+            $updateData = array();
+            $updateData['name'] = (string) $prodCode['name'];
+            $updateData['sysid'] = (string) $prodCode['sysid'];
+            $updateData['station_id'] = $configData['StationCmd']['station_id'];
+            $updateData['isNotSold'] = (string) $prodCode['isNotSold'];
+            $updateData['isFuel'] = (string) $prodCode['isFuel'];
+            $prodId = $this->Prodcode->field('Prodcode.id', $updateData);
+            if ($prodId > 0) {
+                $updateData['id'] = $prodId;
+            }
+            $updateData['sync_id'] = $configData['StationCmd']['sync_id'];
+            $data[] = $updateData;
+        }
+        $this->Prodcode->saveAll($data);
+    }
+
+    function _updateDepartments($departments, $configData) {
+        $data = array();
+        //print_r($configData);exit;
+        foreach ($departments->department as $key => $department) {
+            $updateData = array();
+            $updateData['name'] = (string) $department['name'];
+            $updateData['sysid'] = (string) $department['sysid'];
+            $updateData['station_id'] = $configData['StationCmd']['station_id'];
+            $prodId = $this->Department->field('Department.id', $updateData);
+            if ($prodId > 0) {
+                $updateData['id'] = $prodId;
+            }
+            $updateData['minAmt'] = (string) $department['minAmt'];
+            $updateData['maxAmt'] = (string) $department['maxAmt'];
+            $updateData['isAllowFS'] = (string) $department['isAllowFS'];
+            $updateData['isNegative'] = (string) $department['isNegative'];
+            $updateData['isFuel'] = (string) $department['isFuel'];
+            $updateData['isAllowFQ'] = (string) $department['isAllowFQ'];
+            $updateData['isAllowSD'] = (string) $department['isAllowSD'];
+            $updateData['isBL1'] = (string) $department['isBL1'];
+            $updateData['isBL2'] = (string) $department['isBL2'];
+            $updateData['isBL2'] = (string) $department['isBL2'];
+            $updateData['isMoneyOrder'] = (string) $department['isMoneyOrder'];
+            $updateData['sync_id'] = $configData['StationCmd']['sync_id'];
+            $data[] = $updateData;
+        }
+        $this->Department->saveAll($data);
+    }
+
+    /**
+     * index method
+     *
+     * @return void
+     */
+    public function admin_index() {
+        $this->Department->recursive = 0;
+        $this->set('departments', $this->paginate());
+    }
+
+    /**
+     * view method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function admin_view($id = null) {
+        $this->Department->id = $id;
+        if (!$this->Department->exists()) {
+            throw new NotFoundException(__('Invalid department'));
+        }
+        $this->set('department', $this->Department->read(null, $id));
+    }
+	
+	public function view($id = null) {
+        $this->Department->id = $id;
+        if (!$this->Department->exists()) {
+            throw new NotFoundException(__('Invalid department'));
+        }
+        $this->set('department', $this->Department->read(null, $id));
+    }
+
+    /**
+     * add method
+     *
+     * @return void
+     */
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->Department->create();
+            if ($this->Department->save($this->request->data)) {
+                $this->Session->setFlash(__('The department has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The department could not be saved. Please, try again.'));
+            }
+        }
+		$this->loadModel('Station');
+		$stations 			= $this->Station->find('list');
+		$departmentTypes 	= $this->Department->DepartmentType->find('list');
+        $categories 		= $this->Department->Category->find('list');
+		
+		$this->set(compact('stations','stationId','departmentTypes','categories'));
+    }
+
+    /**
+     * edit method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function admin_edit($id = null) {
+        $this->Department->id = $id;
+        if (!$this->Department->exists()) {
+            throw new NotFoundException(__('Invalid department'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Department->save($this->request->data)) {
+                $this->Session->setFlash(__('The department has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The department could not be saved. Please, try again.'));
+            }
+        } else {
+            $this->request->data = $this->Department->read(null, $id);
+        }
+    }
+	
+	/**
+     * edit method
+     *
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function edit($id = null) {
+        $this->Department->id = $id;
+        if (!$this->Department->exists()) {
+            throw new NotFoundException(__('Invalid department'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Department->save($this->request->data)) {
+                $this->Session->setFlash(__('The department has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The department could not be saved. Please, try again.'));
+            }
+        } else {
+		
+            $this->request->data = $this->Department->read(null, $id);
+		
+		$this->loadModel('Station');
+		$stations 			= $this->Station->find('list');
+		$departmentTypes 	= $this->Department->DepartmentType->find('list');
+        $categories 		= $this->Department->Category->find('list');
+		
+		$this->set(compact('stations','stationId','departmentTypes','categories'));
+        }
+    }
+
+    /**
+     * delete method
+     *
+     * @throws MethodNotAllowedException
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
+    public function admin_delete($id = null) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        $this->Department->id = $id;
+        if (!$this->Department->exists()) {
+            throw new NotFoundException(__('Invalid department'));
+        }
+        if ($this->Department->delete()) {
+            $this->Session->setFlash(__('Department deleted'));
+            $this->redirect(array('action' => 'index'));
+        }
+        $this->Session->setFlash(__('Department was not deleted'));
+        $this->redirect(array('action' => 'index'));
+    }
+
+}

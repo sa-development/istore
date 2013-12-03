@@ -1,0 +1,205 @@
+<?php
+App::uses('AppController', 'Controller');
+/**
+ * FuelSales Controller
+ *
+ * @property FuelSale $FuelSale
+ */
+class FuelSalesController extends AppController {
+
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+		$this->FuelSale->recursive = 0;
+		$this->set('fuelSales', $this->paginate());
+	}
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null) {
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		$this->set('fuelSale', $this->FuelSale->read(null, $id));
+	}
+
+/**
+ * add method
+ *
+ * @return void
+ */
+	public function add() {
+		if ($this->request->is('post')) {
+			$items = array();
+			// function preparedDataForSaveAll is declare in AppController & use to save multi-pal data received. 
+			$items = $this->preparedDataForSaveAll('FuelSale');
+			$this->request->data['FuelSale'] = $items['FuelSale'];
+			$this->FuelSale->create();
+			if ($this->FuelSale->saveAll($this->request->data['FuelSale'])) {
+				$this->Session->setFlash(__('The fuel sale has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The fuel sale could not be saved. Please, try again.'));
+			}
+		}
+		$stations = $this->FuelSale->Station->find('list');
+		
+		$fuelTypes = $this->FuelSale->FuelType->find('list');
+		
+		$this->set(compact('stations', 'fuelTypes'));
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function edit($id = null) {
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->FuelSale->save($this->request->data)) {
+				$this->Session->setFlash(__('The fuel sale has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The fuel sale could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->FuelSale->read(null, $id);
+		}
+		$stations = $this->FuelSale->Station->find('list');
+		$fuelTypes = $this->FuelSale->FuelType->find('list');
+		$this->set(compact('stations','fuelTypes'));
+	}
+
+/**
+ * delete method
+ *
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function delete($id = null) {
+		if (!$this->request->is('post')) {
+			throw new MethodNotAllowedException();
+		}
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		if ($this->FuelSale->delete()) {
+			$this->Session->setFlash(__('Fuel sale deleted'));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('Fuel sale was not deleted'));
+		$this->redirect(array('action' => 'index'));
+	}
+
+/**
+ * admin_index method
+ *
+ * @return void
+ */
+	public function admin_index() {
+		$this->FuelSale->recursive = 0;
+		$this->set('fuelSales', $this->paginate());
+	}
+
+/**
+ * admin_view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_view($id = null) {
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		$this->set('fuelSale', $this->FuelSale->read(null, $id));
+	}
+
+/**
+ * admin_add method
+ *
+ * @return void
+ */
+	public function admin_add() {
+		if ($this->request->is('post')) {
+			$this->FuelSale->create();
+			if ($this->FuelSale->save($this->request->data)) {
+				$this->Session->setFlash(__('The fuel sale has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The fuel sale could not be saved. Please, try again.'));
+			}
+		}
+		$stations = $this->FuelSale->Station->find('list');
+		$this->set(compact('stations'));
+	}
+
+/**
+ * admin_edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_edit($id = null) {
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->FuelSale->save($this->request->data)) {
+				$this->Session->setFlash(__('The fuel sale has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The fuel sale could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->FuelSale->read(null, $id);
+		}
+		$stations = $this->FuelSale->Station->find('list');
+		$this->set(compact('stations'));
+	}
+
+/**
+ * admin_delete method
+ *
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function admin_delete($id = null) {
+		if (!$this->request->is('post')) {
+			throw new MethodNotAllowedException();
+		}
+		$this->FuelSale->id = $id;
+		if (!$this->FuelSale->exists()) {
+			throw new NotFoundException(__('Invalid fuel sale'));
+		}
+		if ($this->FuelSale->delete()) {
+			$this->Session->setFlash(__('Fuel sale deleted'));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->Session->setFlash(__('Fuel sale was not deleted'));
+		$this->redirect(array('action' => 'index'));
+	}
+}

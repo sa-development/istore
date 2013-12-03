@@ -1,0 +1,61 @@
+<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/black/easyui.css">  
+<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/black/icon.css">  
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>  
+<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>  
+<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.edatagrid.js"></script>  
+<div >
+    <?php echo $this->Form->create('Report', array('type' => 'GET')); ?>    
+	<?php echo $this->Form->input('station_id', array('empty' => 'Select Station', 'selected' => $station_id)); ?>
+	<?php echo $this->Form->end(); ?>
+</div>
+
+<?php if($station_id) { ?>
+    <table id="dg" title="Manage Inventory         [click Quantity cell to edit]" style="width:1100px;height:380px"  idField="id"  
+            rownumbers="true" fitColumns="true" singleSelect="true">  
+        <thead>  
+            <tr>  
+				<!--<th field="department_id"><?php echo __('Id'); ?></th> -->
+				<th field="name"><?php echo __('Category'); ?></th>
+				<th editor="{type:'validatebox',options:{required:true}}" field="quantity"><?php echo __('Quantity'); ?></th>
+				<!--<th field="plus"><?php echo __('Last Physcial'); ?></th> -->
+				<!--<th field="ticket_adjustment"><?php echo __('Ticket Adjustment'); ?></th>-->
+				<th field="book_inventory"><?php echo __('Book Inventory'); ?></th>
+				<th editor="{type:'validatebox',options:{required:false}}" field="physical_inventory"><?php echo __('Physical inventory'); ?></th>
+				<th field="short_over"><?php echo __('Short Over'); ?></th>
+				<!--<th field="time"><?php echo __('Time'); ?></th>-->
+				<th field="last_physical"><?php echo __('Last physical'); ?></th>
+				<th field="puchase"><?php echo __('Puchase'); ?></th>
+				<th field="sales"><?php echo __('Sales'); ?></th>
+				<th field="buydown"><?php echo __('Buydown'); ?></th>
+				<th field="price_change"><?php echo __('Price Change'); ?></th>
+				<th field="spoilage"><?php echo __('Spoilage'); ?></th>
+				<th field="cost_of_inventory"><?php echo __('Cost of Inventory'); ?></th>
+                <!-- <th field="firstname" width="50" editor="{type:'validatebox',options:{required:true}}">First Name</th>  -->
+                
+            </tr>  
+        </thead>  
+    </table>  
+	
+    <script type="text/javascript">  
+        $(function(){  
+            $('#dg').edatagrid({  
+                url: '<?php echo $this->Html->url(array('controller' => 'inventories', 'action' => 'getGridData', $station_id)); ?>', 
+                //saveUrl: 'save_user.php',  
+                updateUrl: '<?php echo $this->Html->url(array('controller' => 'inventories', 'action' => 'add', $station_id)); ?>',  
+                //destroyUrl: 'destroy_user.php'  
+            });  
+        });  
+    </script>  
+<?php } ?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#ReportStationId").change(function(){
+            $('#ReportIndexForm').submit();
+            return true;
+        });
+
+    });
+</script>
+

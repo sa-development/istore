@@ -1,0 +1,71 @@
+/**
+*
+* Generic CSS for CakePHP
+*
+* CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+* Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+*
+* Licensed under The MIT License
+* Redistributions of files must retain the above copyright notice.
+*
+* @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+* @link          http://cakephp.org CakePHP(tm) Project
+* @package       cake
+* @subpackage    cake.app.webroot.css
+* @since         CakePHP(tm)
+* @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+*/
+
+
+
+* {margin:0;padding:0;}
+fieldset {
+    border: medium none;
+}
+
+
+/** General Style Info **/
+body {font-family:'lucida grande',verdana,helvetica,arial,sans-serif;font-size:90%;margin:0;}
+
+@font-face {
+font-family: Sansationcustom;
+src: url("../fonts/Sansation_Bold.eot") /* EOT file for IE */
+}
+@font-face {
+font-family: Sansationcustom;
+src: url("../fonts/Sansation_Bold.ttf") /* TTF file for CSS3 browsers */
+}
+
+form .required:after {clear: both;display: block;float: none;height: 0;line-height: 0;width: 0;}
+form .required {font-size: 12px;font-weight: bold;}
+form .input {color: #444444;}
+form div {clear: both;margin-bottom: 1em;padding: 0.5em;vertical-align: text-top;}
+
+/** Notices and Errors **/
+div.message {clear: both;color: #CE2700;background:#FBD3B1 url(../img/icon_error.png) no-repeat 10px 50%;padding:5px 5px 5px 40px;border-radius:5px;border:1px solid #CE2700;width:60%; margin:15px auto;}
+div.error-message {clear: both;color: #fff;font-weight: bold;background: #c73e14;}
+p.error {background-color: #e32;color: #fff;font-family: Courier, monospace;font-size: 120%;line-height: 140%;padding: 0.8em;margin: 1em 0;}
+p.error em {color: #000;font-weight: normal;line-height: 140%;}
+.notice {background:#FFD44F url(../img/icon_warning.png) no-repeat 10px 50%;display: block;padding:5px 5px 5px 40px;margin:15px auto;border-radius:5px;border:1px solid #FFB61B;width:60%;}
+.success {background:#99CA00 url(../img/icon_success.png) no-repeat 10px 50%;color: #fff;border-radius:5px;padding:5px 5px 5px 40px;margin:15px auto;width:60%;text-align:left;border:1px solid #76AD13;}
+
+
+
+
+h4 {color: #999933;font-weight: normal;}
+
+form .required label:after {color: #EE3322;content: "*";display: inline;}
+form .required label {float: left;font-weight: normal;margin: 5px 0 0;text-align: right;width: 170px;}
+
+#UserLoginForm {width:500px; height:250px; position:absolute; top:50%; left:50%; margin:-125px 0 0 -250px; background:#ECECEC; border-radius:8px; padding:15px; box-shadow:0 2px 8px #ccc; border:1px solid #000; }
+#UserLoginForm h4 strong {font-weight:normal; font-family:Verdana, Geneva, sans-serif; color:#3D3D3D; text-align:left; display:block; font-weight:bold; margin-bottom:15px; text-transform:capitalize;}
+#UserLoginForm legend {border-bottom:1px solid #3D3D3D; padding:0 0 2px; display:block; text-align:left; width:100%; margin-bottom:15px; text-align:left;}
+form .required label {width:170px; text-align:right; font-weight:normal; float:left; margin:5px 0 0;}
+#UserLoginForm .required input {height:25px; width:250px; border:1px solid #DEDEDE; line-height:25px; border-radius:3px; padding:0 5px;}
+#UserLoginForm .submit input {height:25px; line-height:22px; text-align:center; display:block; width:85px; color:#fff; text-transform:capitalize; border-radius:5px; background:#3D3D3D; padding:0 0 3px; cursor:pointer; border:1px solid #3D3D3D; font-weight:bold; font-size:11px;}
+#UserLoginForm .submit input:hover {background:#D0C708;}
+
+/*Clears*/
+
+form .required:after {display:block; float:none; clear:both; width:0; height:0; line-height:0; content:"";}
+#TB_title {display:none!important;}

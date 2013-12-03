@@ -1,0 +1,26 @@
+[20-Oct-2013 01:28:44] PHP Fatal error:  Call to a member function result() on a non-object in /home5/indipeop/public_html/accounts/system/application/libraries/Accountlist.php on line 50
+[20-Oct-2013 01:29:01] PHP Fatal error:  Call to a member function result() on a non-object in /home5/indipeop/public_html/accounts/system/application/libraries/Accountlist.php on line 50
+[20-Oct-2013 01:41:37] PHP Fatal error:  Call to a member function result() on a non-object in /home5/indipeop/public_html/accounts/system/application/libraries/Accountlist.php on line 50
+[20-Oct-2013 09:51:31] PHP Fatal error:  Call to a member function all_userdata() on a non-object in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/libraries/Startup.php on line 16
+[20-Oct-2013 11:21:50] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/libraries/Input.php on line 357
+[20-Oct-2013 11:22:09] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/libraries/Input.php on line 100
+[20-Oct-2013 11:42:40] PHP Fatal error:  Call to a member function set_userdata() on a non-object in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/libraries/Startup.php on line 23
+[26-Oct-2013 04:29:52] PHP Fatal error:  Class 'CHtml' not found in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/ledger/add.php on line 2
+[26-Oct-2013 04:29:55] PHP Fatal error:  Class 'CHtml' not found in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/ledger/add.php on line 2
+[26-Oct-2013 04:40:10] PHP Fatal error:  Call to undefined method Group_model::get_all_ledgers() in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/ledger.php on line 59
+[26-Oct-2013 04:43:10] PHP Warning:  Unexpected character in input:  ''' (ASCII=39) state=1 in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/ledger.php on line 288
+[26-Oct-2013 04:43:10] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/ledger.php on line 288
+[26-Oct-2013 06:33:36] PHP Parse error:  syntax error, unexpected $end, expecting ']' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/libraries/Accountlist.php on line 283
+[28-Oct-2013 11:16:51] PHP Parse error:  syntax error, unexpected T_VARIABLE, expecting ',' or ';' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/report.php on line 25
+[28-Oct-2013 11:18:53] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/report.php on line 617
+[28-Oct-2013 11:24:24] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/controllers/report.php on line 614
+[30-Oct-2013 11:31:01] PHP Parse error:  syntax error, unexpected T_STRING in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/report/istoreview.php on line 1
+[30-Nov-2013 11:22:12] PHP Parse error:  syntax error, unexpected '<' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 55
+[30-Nov-2013 11:22:39] PHP Parse error:  syntax error, unexpected '<' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 55
+[30-Nov-2013 11:22:53] PHP Parse error:  syntax error, unexpected '<' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 55
+[30-Nov-2013 11:23:20] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 103
+[30-Nov-2013 11:23:27] PHP Parse error:  syntax error, unexpected $end in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 103
+[30-Nov-2013 11:25:55] PHP Parse error:  syntax error, unexpected T_FOREACH in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 43
+[30-Nov-2013 11:26:03] PHP Parse error:  syntax error, unexpected T_FOREACH in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 43
+[30-Nov-2013 11:26:37] PHP Parse error:  syntax error, unexpected T_FOREACH in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/template.php on line 43
+[02-Dec-2013 09:31:04] PHP Parse error:  syntax error, unexpected $end, expecting '(' in /home5/indipeop/public_html/istoreoffice/app/webroot/accounts/system/application/views/report/profitandloss.php on line 147

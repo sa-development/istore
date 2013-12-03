@@ -1,0 +1,212 @@
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/style.css">
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/tables.css">
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/custom.css">
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/menu.css">
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/jquery.datepick.css">
+<link type="text/css" rel="stylesheet" href="<?php echo asset_url(); ?>css/thickbox.css">
+
+<?php
+$domain = 'http://istoreoffice.net';
+
+/* Dynamically adding css files from controllers */
+if (isset($add_css))
+{
+	foreach ($add_css as $id => $row)
+	{
+		echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"" . asset_url() . $row ."\">";
+	}
+}
+?>
+
+<script type="text/javascript">
+	var jsSiteUrl = '<?php echo base_url(); ?>';
+</script>
+
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/jquery.datepick.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/custom.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/hoverIntent.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/superfish.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/supersubs.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/thickbox-compressed.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/ezpz_tooltip.min.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/shortcutslibrary.js"></script>
+<script type="text/javascript" src="<?php echo asset_url(); ?>js/shortcuts.js"></script>
+
+<?php
+/* Dynamically adding javascript files from controllers */
+if (isset($add_javascript))
+{
+	foreach ($add_javascript as $id => $row)
+	{
+		echo "<script type=\"text/javascript\" src=\"" . asset_url() . $row ."\"></script>";
+	}
+}
+?>
+
+<script type="text/javascript">
+/* Loading JQuery Superfish menu */
+$(document).ready(function() {
+	$("ul.sf-menu").supersubs({ 
+		minWidth:12,
+		maxWidth:27,
+		extraWidth: 1
+	}).superfish(); // call supersubs first, then superfish, so that subs are 
+	$('.datepicker').datepick({
+		dateFormat: '<?php echo $this->config->item('account_date_format'); ?>',
+	});
+	$('.datepicker-restrict').datepick({
+		dateFormat: '<?php echo $this->config->item('account_date_format'); ?>',
+		minDate: '<?php echo date_mysql_to_php($this->config->item('account_fy_start')); ?>',
+		maxDate: '<?php echo date_mysql_to_php($this->config->item('account_fy_end')); ?>',
+	});
+});
+</script>
+
+<div id="container">
+	<div id="menu">
+		<ul class="sf-menu">
+			<li class="current">
+				<a href="<?php print base_url(); ?>" title="Dashboard">Info</a>
+			</li>
+			<li>
+				<?php echo anchor('account', 'Accounts', array('title' => 'Chart of accounts')); ?>
+			</li>
+			<li>
+				<?php
+					/* Showing Entry Type sub-menu */
+					$entry_type_all = $this->config->item('account_entry_types');
+					$entry_type_count = count($entry_type_all);
+					if ($entry_type_count < 1)
+					{
+						echo "";
+					} else if ($entry_type_count == 1) {
+						foreach ($entry_type_all as $id => $row)
+						{
+							echo anchor('entry/show/' . $row['label'], $row['name'], array('title' => $row['name'] . ' Entries'));
+						}
+					} else {
+						echo anchor('entry', 'Entries', array('title' => 'Entries'));
+						echo "<ul>";
+						echo "<li>" . anchor('entry/show/all', 'All', array('title' => 'All Entries')) . "</li>";
+						foreach ($entry_type_all as $id => $row)
+						{
+							echo "<li>" . anchor('entry/show/' . $row['label'], $row['name'], array('title' => $row['name'] . ' Entries')) . "</li>";
+						}
+						echo "</ul>";
+					}
+				?>
+			</li>
+			
+			<li>
+				<?php echo anchor('#', 'Purchase Invoice', array('title' => 'Purchase Invoice')); ?>
+				<ul>
+					<li><?php echo anchor('report/cakephp/fuel_invoices/index', 'Fuel Invoice', array('title' => 'Fuel Invoice')); ?></li>
+					<li><?php echo anchor('report/cakephp/store_invoices/index', 'Store Invoice', array('title' => 'Store Invoice')); ?></li>
+					<li ><a title="Receipt Entries" href="<?php echo $domain; ?>/app/webroot/accounts/index.php/entry/show/payment" style="float: none; width: auto;">Other Bills</a></li>
+					
+					<li><?php echo anchor('report/cakephp/paybills/payable', 'Payables', array('title' => 'Payables')); ?></li>
+					<li><?php echo anchor('report/cakephp/paybills', 'Pay Bills', array('title' => 'Pay Invoice')); ?></li>
+				</ul>
+			</li>
+			
+			
+			<li>
+				<?php echo anchor('#', 'Sales', array('title' => 'Sales')); ?>
+				<ul>
+					<li><?php echo anchor('report/balancesheet', 'Fuel Sales', array('title' => 'Fuel Sales')); ?></li>
+					<li><?php echo anchor('report/balancesheet', 'Store Sales', array('title' => 'Store Sales')); ?></li>
+					<li ><a title="S Entries" href="<?php echo $domain; ?>/app/webroot/accounts/index.php/entry/show/receipt" style="float: none; width: auto;">Other Sales</a></li>
+				</ul>
+			</li>
+			
+			<li>
+				<?php echo anchor('#', 'Journal Entries', array('title' => 'Sales')); ?>
+				<ul>
+					<li ><a title="Journal Entries" href="<?php echo $domain; ?>/app/webroot/accounts/index.php/entry/show/journal" style="float: none; width: auto;">Entries</a></li>
+				</ul>
+			</li>
+			
+			
+			<li>
+				<?php echo anchor('#', 'Reports', array('title' => 'Reports')); ?>
+				<ul>
+					<li><?php echo anchor('report/balancesheet', 'Balance Sheet', array('title' => 'Balance Sheet')); ?></li>
+					<li><?php echo anchor('report/profitandloss', 'Profit & Loss', array('title' => 'Profit & Loss')); ?></li>
+					<li><?php echo anchor('report/trialbalance', 'Trial Balance', array('title' => 'Trial Balance')); ?></li>
+					<li><?php echo anchor('report/ledgerst', 'Ledger Statement', array('title' => 'Ledger Statement')); ?></li>
+					<li><?php echo anchor('report/reconciliation/pending', 'Reconciliation', array('title' => 'Reconciliation')); ?></li>
+				</ul>
+			</li>
+			<li>
+				<?php echo anchor('setting', 'Settings', array('title' => 'Settings')); ?>
+			</li>
+		</ul>
+	</div>
+	<div id="content">
+		<div id="sidebar">
+			<?php if (isset($page_sidebar)) echo $page_sidebar; ?>
+		</div>
+		<div id="main">
+			<div id="main-title">
+				<?php if (isset($page_title)) echo $page_title; ?>
+			</div>
+			<?php if (isset($nav_links)) {
+				echo "<div id=\"main-links\">";
+				echo "<ul id=\"main-links-nav\">";
+				foreach ($nav_links as $link => $title) {
+					if ($title == "Print Preview")
+						echo "<li>" . anchor_popup($link, $title, array('title' => $title, 'class' => 'nav-links-item', 'style' => 'background-image:url(\'' . asset_url() . 'images/buttons/navlink.png\');', 'width' => '1024')) . "</li>";
+					else
+						echo "<li>" . anchor($link, $title, array('title' => $title, 'class' => 'nav-links-item', 'style' => 'background-image:url(\'' . asset_url() . 'images/buttons/navlink.png\');')) . "</li>";
+				}
+				echo "</ul>";
+				echo "</div>";
+			} ?>
+			<div class="clear">
+			</div>
+			<div id="main-content">
+				<?php
+				$messages = $this->messages->get();
+				if (is_array($messages))
+				{
+					if (count($messages['success']) > 0)
+					{
+						echo "<div id=\"success-box\">";
+						echo "<ul>";
+						foreach ($messages['success'] as $message) {
+							echo ('<li>' . $message . '</li>');
+						}
+						echo "</ul>";
+						echo "</div>";
+					}
+					if (count($messages['error']) > 0)
+					{
+						echo "<div id=\"error-box\">";
+						echo "<ul>";
+						foreach ($messages['error'] as $message) {
+							if (substr($message, 0, 4) == "<li>")
+								echo ($message);
+							else
+								echo ('<li>' . $message . '</li>');
+						}
+						echo "</ul>";
+						echo "</div>";
+					}
+					if (count($messages['message']) > 0)
+					{
+						echo "<div id=\"message-box\">";
+						echo "<ul>";
+						foreach ($messages['message'] as $message) {
+							echo ('<li>' . $message . '</li>');
+						}
+						echo "</ul>";
+						echo "</div>";
+					}
+				}
+				?>
+				<?php echo $contents; ?>
+			</div>
+		</div>
+	</div>
+</div>

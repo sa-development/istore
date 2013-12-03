@@ -1,0 +1,1 @@
+<iframe width="100%" height="100%" seamless="seamless" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" scrolling="no" src="<?php echo $istoreURL; ?>" />
